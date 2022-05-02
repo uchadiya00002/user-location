@@ -3,6 +3,8 @@ const { request } = require("express");
 const User = require("../model/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+
 const { registerValidation, loginValidation } = require("./validation");
 
 router.post("/register", async (req, res) => {
