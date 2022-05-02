@@ -22,7 +22,7 @@ const Navbar = () => {
           onClick={routeToHomepage}
           className="text-3xl font-medium text-green-500"
         >
-          NEARBY USER
+          USER LOCATION
         </h3>
       </div>
 
@@ -31,6 +31,7 @@ const Navbar = () => {
           className="px-4 py-2 text-gray-100 bg-green-500 rounded-md"
           type="submit"
           onClick={routeToSignin}
+          isLoggedIn={true}
         >
           Sign in
         </button>

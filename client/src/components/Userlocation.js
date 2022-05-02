@@ -2,27 +2,32 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const location_Api = `https://api.openweathermap.org/data/2.5/onecall?`;
-const Userlocation = () => {
+const location_Api = `https://ipinfo.io/json?token=de101b8e29a848`;
+const Userlocation = (isLoggedIn) => {
+  const [location, setLocation] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
     });
 
-    console.log(`${location_Api}`);
-    let finalAPi = `${location_Api}lat=${latitude}&lon=${longitude}&exclude=hourly,daily&appid={358c353c0a7394b94b6d69f7ece40258
-    }`;
-
-    axios.get(finalAPi).then((res) => {
-      console.log(res.data);
+    axios.get(location_Api).then((res) => {
+      setLocation(res.data);
+      console.table(res.data);
     });
   }, []);
 
-  return <div>Userlocation</div>;
+  return isLoggedIn ? (
+    <div>
+      <p className="text-center m-3">
+        Location- {location.city}, {location.country} - {location.postal}
+      </p>
+      <p className="text-center m-3">Latitude is {latitude}</p>
+      <p className="text-center">Longitude is {longitude}</p>
+    </div>
+  ) : null;
 };
 
 export default Userlocation;

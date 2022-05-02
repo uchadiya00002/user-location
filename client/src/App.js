@@ -12,7 +12,7 @@ function App() {
       <Routes className="App">
         <Route exact path="/" element={<Homepage />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path="/signin" element={<Signin isLoggedIn={true} />} />
       </Routes>
     </div>
   );

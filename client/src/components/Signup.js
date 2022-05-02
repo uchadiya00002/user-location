@@ -26,7 +26,7 @@ const SignUp = () => {
       .post(`http://localhost:5000/api/user/register`, user)
       .then((res) => {
         console.log(res);
-        navigate("/");
+        navigate("/signin");
         alert("User is successfully Signed Up");
       })
       .catch((error) => {
