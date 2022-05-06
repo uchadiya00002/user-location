@@ -6,8 +6,9 @@ const Signin = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
+  const [password, setPassword] = useState({
+    defaultPassword: "",
+  });
   const handleSubmit = (e) => {
     e.preventDefault();
 

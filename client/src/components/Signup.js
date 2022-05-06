@@ -1,18 +1,36 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import validator from "validator";
+
 import SideSection from "./SideSection";
+import { BsFillEyeFill } from "react-icons/bs";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [position, setPostion] = useState("default");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState({
+    defaultPassword: "",
+  });
 
-  const handleSubmit = (e, values) => {
+  const validateEmail = (e) => {
+    var emailValid = e.target.value;
+
+    if (validator.isEmail(emailValid)) {
+      setEmail("Valid Email :)");
+    } else {
+      setEmail("Please Enter a valid Email add!");
+    }
+  };
+
+  const togglePassword = () => {
+    setPassword(!password);
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
 
     const user = {
       name,
@@ -58,16 +76,28 @@ const SignUp = () => {
                 required
                 onChange={(e) => setName(e.target.value)}
               />
-
-              <input
-                type="email"
-                className="block border border-grey-light w-full p-3 rounded mb-4"
-                name="email"
-                placeholder="Email address"
-                value={email}
-                required
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <div>
+                <div className="flex">
+                  <input
+                    type="email"
+                    className="block border border-grey-light w-full p-3 rounded mb-4"
+                    name="email"
+                    placeholder="Email address"
+                    value={email}
+                    required
+                    onChange={(e) => validateEmail(e)}
+                  />
+                </div>
+                <span
+                  className="text-red-500 font-medium	 text-sm "
+                  // style={{
+                  //   fontWeight: "bold",
+                  //   color: "red",
+                  // }}
+                >
+                  {email}
+                </span>
+              </div>
 
               <select
                 className="block border border-grey-light w-full p-3 rounded mb-4"
@@ -85,7 +115,7 @@ const SignUp = () => {
                   I would describe my user type as{" "}
                 </option>
                 <option value="Developer">Developer</option>
-                <option value="Desinger">Desinger</option>
+                <option value="Desinger">Designer</option>
                 <option value="Business Executive">Business Executive</option>
                 <option value="Data Scientist">Data Scientist</option>
                 <option value="Quality Analyst">Quality Analyst</option>
@@ -94,16 +124,26 @@ const SignUp = () => {
                 </option>
               </select>
 
-              <div className="mb-4">
-                <input
-                  type="password"
-                  className="block border border-grey-light w-full p-3 rounded mb-4"
-                  name="password"
-                  placeholder="Password"
-                  value={password}
-                  required
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+              <div className="mb-4 ">
+                <div className="flex">
+                  <input
+                    type={!password ? "text" : "password"}
+                    className="block border border-grey-light w-full p-3 rounded mb-4"
+                    name="password"
+                    placeholder="Password"
+                    value={password.defaultPassword}
+                    required
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+
+                  <button
+                    className="flex-end p-5 mb-3"
+                    onClick={togglePassword}
+                  >
+                    <BsFillEyeFill />
+                  </button>
+                </div>
+
                 <span className="text-gray-400 mb-4 text-sm	">
                   Minimum 8 characters
                 </span>
@@ -125,6 +165,7 @@ const SignUp = () => {
                 className="no-underline border-b border-blue text-blue-500 font-bold ml-2"
               >
                 Terms of services
+                {""}{" "}
               </a>
               and
               <a
