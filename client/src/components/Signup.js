@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import PhoneInput from "react-phone-number-input";
+import SideSection from "./SideSection";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [phone, setPhone] = useState("");
+  const [name, setName] = useState("");
+  const [position, setPostion] = useState("default");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, values) => {
     e.preventDefault();
+    console.log(values);
 
     const user = {
-      firstname,
-      lastname,
-      phone,
+      name,
+      position,
       email,
       password,
     };
@@ -34,84 +33,112 @@ const SignUp = () => {
         alert("issue signing-up try with different Sign-up details");
       });
   };
+
   return (
-    <div>
-      <div className="bg-grey-lighter min-h-screen flex flex-col">
-        <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-          <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-            <h1 className="mb-8 text-3xl text-center">SIGN UP</h1>
-            <input
-              type="text"
-              className="block border border-grey-light w-full p-3 rounded mb-4"
-              name="firstname"
-              placeholder="First Name"
-              value={firstname}
-              required
-              onChange={(e) => setFirstname(e.target.value)}
-            />
-
-            <input
-              type="text"
-              className="block border border-grey-light w-full p-3 rounded mb-4"
-              name="lastname"
-              placeholder="Last Name"
-              value={lastname}
-              required
-              onChange={(e) => setLastname(e.target.value)}
-            />
-
-            <div className="w-8">
-              <PhoneInput
-                type="text"
-                country="IN"
-                className=" PhoneInputCountryFlag-height-4  block border border-grey-light  w-full p-3  flex-1 rounded mb-4"
-                name="phone"
-                placeholder="Phone Number"
-                value={phone}
-                onChange={setPhone}
-                required
-              />
+    <div className=" md:grid grid-cols-3 sm:flex">
+      <div className=" mt-5 col-span-2 ">
+        <div className="bg-grey-lighter md:min-h-screen flex flex-col ">
+          <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center   px-2">
+            <h1 className="mb-4 text-3xl text-center font-bold">
+              Let's Set up your account
+            </h1>
+            <div className="text-grey-dark mt-3 mr-auto p-5">
+              Already have an account ?
+              <a className=" text-blue-500 font-bold ml-2" href="../signin/">
+                Sign In
+              </a>
             </div>
-            <input
-              type="email"
-              className="block border border-grey-light w-full p-3 rounded mb-4"
-              name="email"
-              placeholder="Email"
-              value={email}
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+              <input
+                type="text"
+                className="block border border-grey-light w-full p-3 rounded mb-4"
+                name="Name"
+                placeholder="Your name"
+                value={name}
+                required
+                onChange={(e) => setName(e.target.value)}
+              />
 
-            <input
-              type="password"
-              className="block border border-grey-light w-full p-3 rounded mb-4"
-              name="password"
-              placeholder="Password"
-              value={password}
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
+              <input
+                type="email"
+                className="block border border-grey-light w-full p-3 rounded mb-4"
+                name="email"
+                placeholder="Email address"
+                value={email}
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
-            <button
-              type="submit"
-              className="w-full bg-green-500 px-4 py-2 text-white"
-              onClick={handleSubmit}
-            >
-              Create Account
-            </button>
-          </div>
+              <select
+                className="block border border-grey-light w-full p-3 rounded mb-4"
+                placeholder="I would describe my user type as"
+                required
+                value={position}
+                onChange={(e) => setPostion(e.target.value)}
+              >
+                <option
+                  className="text-grey-dark text-sm"
+                  value="default"
+                  disabled
+                  hidden
+                >
+                  I would describe my user type as{" "}
+                </option>
+                <option value="Developer">Developer</option>
+                <option value="Desinger">Desinger</option>
+                <option value="Business Executive">Business Executive</option>
+                <option value="Data Scientist">Data Scientist</option>
+                <option value="Quality Analyst">Quality Analyst</option>
+                <option value="Mobile Test Engineer">
+                  Mobile Test Engineer
+                </option>
+              </select>
 
-          <div className="text-grey-dark mt-6">
-            Already have an account?
-            <a
-              class="no-underline border-b border-blue text-blue"
-              href="../signin/"
-            >
-              Log in
-            </a>
+              <div className="mb-4">
+                <input
+                  type="password"
+                  className="block border border-grey-light w-full p-3 rounded mb-4"
+                  name="password"
+                  placeholder="Password"
+                  value={password}
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <span className="text-gray-400 mb-4 text-sm	">
+                  Minimum 8 characters
+                </span>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-gray-300 px-4 py-2 text-white hover:bg-blue-500"
+                onClick={handleSubmit}
+              >
+                Next
+              </button>
+            </div>
+            <p className="mt-4 text-sm font-medium text-xs	">
+              By clicking the "Next" button,you agree to creating a free acount,
+              and to{" "}
+              <a
+                href="#term"
+                className="no-underline border-b border-blue text-blue-500 font-bold ml-2"
+              >
+                Terms of services
+              </a>
+              and
+              <a
+                href="#privacy"
+                className="no-underline border-b border-blue text-blue-500 font-bold ml-2"
+              >
+                Privacy Policy
+              </a>
+              .
+            </p>
           </div>
         </div>
       </div>
+      <SideSection />
     </div>
   );
 };

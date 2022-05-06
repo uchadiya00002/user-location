@@ -1,18 +1,18 @@
-import "./App.css";
 import { Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import SignUp from "./components/Signup";
 import Signin from "./components/Signin";
-import Homepage from "./components/Homepage";
-import Navbar from "./components/Navbar";
+import SideSection from "./components/SideSection";
+import Post from "./components/Post";
+
 function App() {
   return (
     <div>
-      <Navbar />
       <Routes className="App">
-        <Route exact path="/" element={<Homepage />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<Signin isLoggedIn={true} />} />
+        <Route exact path="/" element={<SignUp />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/sidesection" element={<SideSection />} />
+        <Route path="/post" element={<Post />} />
       </Routes>
     </div>
   );

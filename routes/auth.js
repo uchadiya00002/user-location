@@ -1,9 +1,7 @@
 const router = require("express").Router();
-const { request } = require("express");
 const User = require("../model/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
 
 const { registerValidation, loginValidation } = require("./validation");
 
@@ -24,9 +22,8 @@ router.post("/register", async (req, res) => {
 
   //Create a new user
   const user = new User({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    phone: req.body.phone,
+    name: req.body.name,
+    position: req.body.position,
     email: req.body.email,
     password: hashedPassword,
   });

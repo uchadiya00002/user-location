@@ -10,6 +10,7 @@ const Signin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const user = {
       email,
       password,
@@ -19,7 +20,7 @@ const Signin = () => {
       .then((res) => {
         console.log(res);
         alert("User is successfully logged in.");
-        navigate("/");
+        navigate("/post");
       })
       .catch((error) => {
         console.log(error);
@@ -28,7 +29,7 @@ const Signin = () => {
   };
 
   return (
-    <div1>
+    <div>
       <div className="bg-grey-lighter min-h-screen flex flex-col">
         <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
           <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
@@ -36,16 +37,17 @@ const Signin = () => {
             <p className="text-center border-grey-light w-full p-3 rounded mb-4">
               Sign-in with Email and Password
             </p>
-            <input
-              type="email"
-              className="block border border-grey-light w-full p-3 rounded mb-4"
-              name="email"
-              placeholder="Email"
-              value={email}
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-
+            <div>
+              <input
+                type="email"
+                className="block border border-grey-light w-full p-3 rounded mb-4"
+                name="email"
+                placeholder="Email address"
+                value={email}
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
             <input
               type="password"
               className="block border border-grey-light w-full p-3 rounded mb-4"
@@ -58,15 +60,21 @@ const Signin = () => {
 
             <button
               type="submit"
-              className="w-full bg-green-500 px-4 py-2 text-white"
+              className="w-full bg-gray-300 px-4 py-2 text-white hover:bg-blue-500 "
               onClick={handleSubmit}
             >
               SIGN-IN
             </button>
           </div>
+          <div className="text-grey-dark mt-6">
+            Dont't Have an account ?
+            <a className=" text-blue-500 font-bold ml-2" href="../">
+              Sign Up
+            </a>
+          </div>
         </div>
       </div>
-    </div1>
+    </div>
   );
 };
 
