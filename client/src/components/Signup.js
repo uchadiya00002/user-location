@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import validator from "validator";
-
 import SideSection from "./SideSection";
 import { BsFillEyeFill } from "react-icons/bs";
 
@@ -11,17 +10,18 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [position, setPostion] = useState("default");
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState({
     defaultPassword: "",
   });
 
   const validateEmail = (e) => {
     var emailValid = e.target.value;
-
+    setEmail(emailValid);
     if (validator.isEmail(emailValid)) {
-      setEmail("Valid Email :)");
+      setEmailError("Valid Email :)");
     } else {
-      setEmail("Please Enter a valid Email add!");
+      setEmailError("Please Enter a valid Email address!");
     }
   };
 
@@ -31,11 +31,12 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
 
     const user = {
       name,
-      position,
       email,
+      position,
       password,
     };
 
@@ -88,14 +89,8 @@ const SignUp = () => {
                     onChange={(e) => validateEmail(e)}
                   />
                 </div>
-                <span
-                  className="text-red-500 font-medium	 text-sm "
-                  // style={{
-                  //   fontWeight: "bold",
-                  //   color: "red",
-                  // }}
-                >
-                  {email}
+                <span className="text-red-500 font-medium	 text-sm ">
+                  {emailError}
                 </span>
               </div>
 
@@ -157,7 +152,7 @@ const SignUp = () => {
                 Next
               </button>
             </div>
-            <p className="mt-4 text-sm font-medium text-xs	">
+            <p className="mt-4 text-sm font-medium">
               By clicking the "Next" button,you agree to creating a free acount,
               and to{" "}
               <a
